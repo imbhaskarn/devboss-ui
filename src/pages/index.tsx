@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <Layout>
       <Image
-        src="/images/profile.jpg"
+        src="/images/logo.jpg"
         height={144}
         width={144}
         alt="Your Name"
