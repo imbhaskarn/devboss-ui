@@ -7,9 +7,11 @@ import { SignInCard } from "./signInCard";
 import { useDispatch } from "react-redux";
 import { toggleLogin } from "@/store";
 import { useSelector } from "react-redux";
+import { BiSolidUser } from "react-icons/bi";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const showLogin = useSelector((state: any) => state.signIn.showLogin);
+  const user = useSelector((state: any) => state.auth.user);
   const dispatch = useDispatch();
   const handleShowLogin = () => {
     console.log("clicked");
@@ -31,12 +33,21 @@ const Navbar = () => {
             </span>
           </Link>
           <div className="flex md:order-2">
-            <button
-              type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Get started
-            </button>
+            {user ? (
+              <div className="text-gray-200 text-lg text-center flex justify-center items-center flex-col">
+                <div>
+                  <BiSolidUser size={30} />
+                </div>
+                <div>{user.username}</div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Get started
+              </button>
+            )}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               data-collapse-toggle="navbar-default"
@@ -46,10 +57,7 @@ const Navbar = () => {
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
-              {
-                // Icon when menu is closed.
-                !menuOpen && <FiMenu size={30} />
-              }
+              {!menuOpen && <FiMenu size={30} />}
               {menuOpen && <TfiClose size={30} />}
             </button>
           </div>
@@ -75,15 +83,17 @@ const Navbar = () => {
                   Write
                 </Link>
               </li>
-              <li>
-                <Link
-                  onClick={handleShowLogin}
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Sign In
-                </Link>
-              </li>
+              {!user && (
+                <li>
+                  <Link
+                    onClick={handleShowLogin}
+                    href="#"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Sign In
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

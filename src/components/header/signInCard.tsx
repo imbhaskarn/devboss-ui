@@ -3,17 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleLogin } from "@/store";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { useFetch } from "@/hooks/useFetch";
+import axiosInstance from "@/utils/axios/axios";
+import { setRefreshToken, setAccessToken, setUser } from "@/store";
+
 export const SignInCard = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-
   const showLogin = useSelector((state: any) => state.signIn.showLogin);
   const dispatch = useDispatch();
+  const onSubmit = (values: any) => {
+    axiosInstance
+      .post("/auth/login", values)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(toggleLogin());
+        dispatch(setAccessToken(res.data.data.accessToken));
+        dispatch(setRefreshToken(res.data.data.refreshToken));
+        dispatch(setUser(res.data.data.user));
+        localStorage.setItem("refreshToken", res.data.data.refreshToken);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log(values);
+  };
 
   return (
     <motion.div
@@ -23,7 +40,6 @@ export const SignInCard = () => {
       exit={{ opacity: 0 }}
       className="overflow-visible fixed inset-0 z-10 flex justify-center items-center bg-gray-900 bg-opacity-50"
       onClick={(e) => {
-        e.stopPropagation();
         dispatch(toggleLogin());
       }}
     >
@@ -34,25 +50,7 @@ export const SignInCard = () => {
         className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
         <form
-          onSubmit={handleSubmit((data) => console.log(data)
-            useFetch("http://localhost:3000/api/auth/login", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: watch("email"),
-                password: watch("password"),
-              }),
-            })
-              .then((data) => console.log(data))
-              .catch((error) => console.log(error));
-              data: null,
-              isPending: false,
-              error: null,
-            }).catch((error) => console.log(error));
-
-            )}
+          onSubmit={handleSubmit(onSubmit)}
           className="space-y-6"
           action="#"
         >
@@ -113,12 +111,11 @@ export const SignInCard = () => {
             <div className="flex items-start">
               <div className="flex items-center h-5">
                 <input
-                  {...register("remember", { required: true })}
+                  {...register("remember")}
                   id="remember"
                   type="checkbox"
                   value=""
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                  required
                 />
               </div>
               <label
