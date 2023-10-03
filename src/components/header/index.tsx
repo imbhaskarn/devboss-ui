@@ -1,13 +1,14 @@
-import React from 'react'
-import Navbar from './Navbar';
-import Hero from './Hero';
+import React from "react";
+import Navbar from "./Navbar";
+import Hero from "./Hero";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const user = useSelector((state: any) => state.auth.user);
   return (
     <div>
-        <Navbar />
-        <Hero/>
+      <Navbar />
+      {!user && <Hero />}
     </div>
-  )
-}
-
-export default Header
+  );
+};
+export default Header;

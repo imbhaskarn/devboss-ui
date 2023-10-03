@@ -1,5 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
 // create a slice
 export const loginSlice = createSlice({
@@ -38,13 +46,21 @@ const authSlice = createSlice({
 export const { toggleLogin } = loginSlice.actions;
 export const { setAccessToken, setRefreshToken, setUser } = authSlice.actions;
 
-// config the store
-const store = configureStore({
-  reducer: {
+const persistedReducer = persistReducer(
+  persistConfig,
+  combineReducers({
     signIn: loginSlice.reducer,
     auth: authSlice.reducer,
-  },
+  })
+);
+
+// config the store
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [thunk],
 });
+
+export const persistor = persistStore(store);
 
 // export default the store
 export default store;
