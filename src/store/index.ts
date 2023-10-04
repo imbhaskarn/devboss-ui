@@ -25,6 +25,7 @@ export const loginSlice = createSlice({
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    isLoggedIn: false,
     accessToken: "",
     refreshToken: "",
     user: null,
@@ -39,12 +40,15 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setLoginStatus: (state, action) => {
+      state.isLoggedIn = action.payload;
+    },
   },
 });
 
 // Export the reducer and action creators
 export const { toggleLogin } = loginSlice.actions;
-export const { setAccessToken, setRefreshToken, setUser } = authSlice.actions;
+export const { setAccessToken, setRefreshToken, setUser, setLoginStatus } = authSlice.actions;
 
 const persistedReducer = persistReducer(
   persistConfig,

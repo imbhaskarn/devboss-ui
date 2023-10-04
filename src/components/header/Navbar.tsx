@@ -1,28 +1,54 @@
 import Link from "next/link";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
-import { TfiClose } from "react-icons/tfi";
+import { AiOutlineClose } from "react-icons/ai";
 import { SignInCard } from "./signInCard";
 import { useDispatch } from "react-redux";
-import { toggleLogin } from "@/store";
+import { toggleLogin, setLoginStatus } from "@/store";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
-import Image from "next/image";
+interface state {
+  signIn: {
+    showLogin: boolean;
+  };
+  auth: {
+    isLoggedIn: boolean;
+    user: {
+      username: string;
+    };
+  };
+}
+
+import {
+  FaHome,
+  FaInfo,
+  FaPenSquare,
+  FaSearch,
+  FaSignInAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const showLogin = useSelector((state: any) => state.signIn.showLogin);
-  const user = useSelector((state: any) => state.auth.user);
+  const showLogin = useSelector((state: state) => state.signIn.showLogin);
+  const isLoggedIn = useSelector((state: state) => state.auth.isLoggedIn);
+  const user = useSelector((state: state) => state.auth.user);
   const dispatch = useDispatch();
+
   const handleShowLogin = () => {
-    console.log("clicked");
     dispatch(toggleLogin());
+    setMenuOpen(false);
   };
-  console.log(showLogin);
+
+  const handleSignOut = () => {
+    dispatch(setLoginStatus(false));
+  };
+
   return (
     <div>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <nav className="bg-white border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-4">
           <Link href="https://flowbite.com/" className="flex items-center">
             <img
@@ -30,15 +56,15 @@ const Navbar = () => {
               className="h-8 mr-3"
               alt="Flowbite Logo"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-2xl font-semibold whitespace-nowrap">
               Devboss
             </span>
           </Link>
-          <div className="flex md:order-2">
-            {user ? (
+          <div onClick={handleShowLogin} className="flex md:order-2">
+            {isLoggedIn ? (
               <div className="hidden md:block text-gray-200 text-lg rounded-full hover:ring-blue text-center">
                 <img
-                  src={`https://ui-avatars.com/api/?background=a5b5e6&color=22223b&name=${user.username}&rounded=true&bold=true&size=128`}
+                  src={`https://ui-avatars.com/api/?background=a5b5e6&color=22223b&name=${user?.username}&rounded=true&bold=true&size=128`}
                   width={42}
                   height={42}
                   className="rounded-full"
@@ -48,34 +74,42 @@ const Navbar = () => {
             ) : (
               <button
                 type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white hidden md:block bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-3 md:mr-0"
               >
                 Get started
               </button>
             )}
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMenuOpen(!menuOpen);
+              }}
               data-collapse-toggle="navbar-default"
               type="button"
-              className="inline-flex items-center  w-10 h-10 z-20 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center z-30  w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none  focus:ring-gray-200"
               aria-controls="navbar-default"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
-              
+
               {!menuOpen && <FiMenu size={30} style={{ color: "white" }} />}
-              {menuOpen && <TfiClose size={30} style={{ color: "white" }} />}
+              {menuOpen && (
+                <AiOutlineClose
+                  size={30}
+                  style={{ color: "black", fontWeight: "100" }}
+                />
+              )}
             </button>
           </div>
           <div
-            className={`hidden md:relative w-5/6  md:block md:w-auto`}
+            className={`hidden md:relative  w-5/6 z-50  md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="font flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="font flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 text-lg rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 text-lg rounded md:bg-transparent md:text-blue-700 md:p-0"
                   aria-current="page"
                 >
                   Home
@@ -84,7 +118,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   Write
                 </Link>
@@ -92,7 +126,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   Donate
                 </Link>
@@ -100,17 +134,17 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   About
                 </Link>
               </li>
-              {!user && (
+              {isLoggedIn && (
                 <li>
                   <Link
                     onClick={handleShowLogin}
                     href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
                   >
                     Sign In
                   </Link>
@@ -121,62 +155,104 @@ const Navbar = () => {
           <AnimatePresence>
             {menuOpen && (
               <motion.div
-              key={"navbar-default"}
+                key={"navbar-default"}
                 initial={{ opacity: 0, left: "-100%" }}
                 animate={{ opacity: 1, left: "0%" }}
                 exit={{ opacity: 0, left: "-100%" }}
-                transition={{ duration: 0.2, type: "tween", ease: "easeOut" }}
-                className="overflow-visible absolute inset-0 md:hidden bg-gray-400 dark:bg-gray-200 shadow-md shadow-slate-950"
+                transition={{ duration: 0.4, type: "tween", ease: "easeOut" }}
+                className="overflow-visible absolute z-20 inset-0 md:hidden shadow-md shadow-slate-300 bg-transparent"
                 id="navbar-default"
               >
-                <ul className="font w-3/5 h-full flex flex-col text-left py-10 p-10 md:p-0 border border-gray-100 bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                  <li>
-                    <Link
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-white bg-blue-700 text-lg rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                      aria-current="page"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      Write
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      Donate
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      About
-                    </Link>
-                  </li>
-                  {!user && (
+                <div className="h-full w-full bg-slate-200 bg-opacity-20">
+                  <ul className="font w-4/6 h-full flex flex-col text-left bg-opacity-100 py-10 p-10 gap-3 md:p-0 border border-gray-100 bg-gray-200 md:flex-row md:space-x-8 md:mt-0 md:border-0">
                     <li>
-                      <Link
-                        onClick={handleShowLogin}
+                      <a
                         href="#"
-                        className="block py-2 pl-3 pr-4 text-gray-900 rounded text-lg hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        className="flex items-center p-2 text-lg text-gray-900 rounded-lg hover:bg-gray-100 group"
                       >
-                        Sign In
-                      </Link>
+                        <FaHome
+                          size={24}
+                          className="text-gray-500 group-hover:text-gray-900"
+                        />
+                        <span className="ml-3">Home</span>
+                      </a>
                     </li>
-                  )}
-                </ul>
+                    <li>
+                      <a
+                        href="#"
+                        className="flex items-center p-2 text-lg text-gray-900 rounded-lg hover:bg-gray-100 group"
+                      >
+                        <FaPenSquare
+                          size={24}
+                          className="text-gray-500 group-hover:text-gray-900"
+                        />
+                        <span className="ml-3">Write</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        className="flex items-center p-2 text-lg text-gray-900 rounded-lg hover:bg-gray-100 group"
+                      >
+                        <FaInfo
+                          size={24}
+                          className="text-gray-500 group-hover:text-gray-900"
+                        />
+                        <span className="ml-3">About</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        className="flex items-center p-2 text-lg text-gray-900 rounded-lg hover:bg-gray-100 group"
+                      >
+                        <FaSearch
+                          size={24}
+                          className="text-gray-500 group-hover:text-gray-900"
+                        />
+                        <span className="ml-3">Search</span>
+                      </a>
+                    </li>
+                    {isLoggedIn ? (
+                      <li
+                        onClick={handleSignOut}
+                        className="flex-grow flex justify-end flex-col"
+                      >
+                        <button className="inline-flex items-center justify-center font-sans font-semibold tracking-wide text-white bg-blue-700 rounded-lg h-[48px]">
+                          <a
+                            href="#"
+                            className=" flex items-center p-2 text-lg font-normal text-gray-900 rounded-lg group"
+                          >
+                            <FaSignOutAlt
+                              size={24}
+                              color={"white"}
+                              className="text-gray-500 group-hover:text-gray-900"
+                            />
+                            <span className="ml-3">Sign Out</span>
+                          </a>{" "}
+                        </button>
+                      </li>
+                    ) : (
+                      <li className="flex-grow flex justify-end flex-col">
+                        <button className="inline-flex items-center justify-center font-sans font-semibold tracking-wide text-white bg-blue-700 rounded-lg h-[48px]">
+                          <a
+                            href="#"
+                            className=" flex items-center p-2 text-lg font-normal text-gray-900 rounded-lg group"
+                          >
+                            <FaSignInAlt
+                              size={24}
+                              color={"white"}
+                              className="text-gray-500 group-hover:text-gray-900"
+                            />
+                            <span className="ml-3">Sign In</span>
+                          </a>{" "}
+                        </button>
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </motion.div>
-            )}{" "}
+            )}
           </AnimatePresence>
         </div>
       </nav>
