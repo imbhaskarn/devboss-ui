@@ -3,11 +3,11 @@ import React from "react";
 const Hero = () => {
   return (
     <>
-      <section className="bg-slate-200 ">
-        <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+      <section>
+        <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12  ">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-6xl font-extrabold tracking-tight leading-none md:text-6xl xl:text-[72px]">
-              <span className="relative mt-2 text-transparent bg-clip-text z-10 bg-gradient-to-br from-blue-600 to-blue-800 md:inline-block">
+              <span className="relative mt-2  text-secondary md:inline-block">
                 Unlock the Code
               </span>
             </h1>
@@ -16,11 +16,11 @@ const Hero = () => {
             </p>
             <button
               type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center mr-3 md:mr-0 "
+              className="text-white bg-yinmn-500 hover:bg-blue-800  focus:outline-none  font-medium rounded-lg text-sm px-8 py-4 text-center mr-3 md:mr-0 "
             >
               <a
                 href="#"
-                className="inline-flex items-center justify-center  text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800"
+                className="inline-flex text-[#fff] items-center bg-primary px-[1.5rem] py-[1rem] justify-center  text-base font-medium text-center text-pla rounded-lg  hover:bg-primary-800"
               >
                 Start Unlocking
               </a>
