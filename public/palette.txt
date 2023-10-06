@@ -1,0 +1,36 @@
+/* Coolors Exported Palette - https://coolors.co/e7ecef-d2dae2-bcc8d4-527092-3c5e84-274c77 */
+
+- Tailwind
+
+{ 'anti-flash_white': { DEFAULT: '#e7ecef', 100: '#263138', 200: '#4b6371', 300: '#7693a4', 400: '#aebfc9', 500: '#e7ecef', 600: '#ebf0f2', 700: '#f0f3f5', 800: '#f5f7f8', 900: '#fafbfc' }, 'platinum': { DEFAULT: '#d2dae2', 100: '#222b35', 200: '#44576a', 300: '#67829e', 400: '#9badbf', 500: '#d2dae2', 600: '#dae0e7', 700: '#e3e8ed', 800: '#ecf0f3', 900: '#f6f7f9' }, 'french_gray': { DEFAULT: '#bcc8d4', 100: '#1f2831', 200: '#3e5061', 300: '#5d7792', 400: '#8a9fb4', 500: '#bcc8d4', 600: '#c8d2dc', 700: '#d6dde5', 800: '#e4e9ed', 900: '#f1f4f6' }, 'ucla_blue': { DEFAULT: '#527092', 100: '#11171d', 200: '#212d3b', 300: '#324458', 400: '#425a76', 500: '#527092', 600: '#6f8dae', 700: '#93a9c2', 800: '#b7c6d7', 900: '#dbe2eb' }, 'lapis_lazuli': { DEFAULT: '#3c5e84', 100: '#0c131b', 200: '#182635', 300: '#243950', 400: '#304c6b', 500: '#3c5e84', 600: '#507db1', 700: '#7c9ec4', 800: '#a8bed8', 900: '#d3dfeb' }, 'yinmn_blue': { DEFAULT: '#274c77', 100: '#080f18', 200: '#0f1f30', 300: '#172e48', 400: '#1f3d5f', 500: '#274c77', 600: '#386ead', 700: '#6092cb', 800: '#95b6dd', 900: '#cadbee' } }
+
+- CSV
+
+e7ecef,d2dae2,bcc8d4,527092,3c5e84,274c77
+
+- With #
+
+#e7ecef, #d2dae2, #bcc8d4, #527092, #3c5e84, #274c77
+
+- Array
+
+["e7ecef","d2dae2","bcc8d4","527092","3c5e84","274c77"]
+
+- Object
+
+{"Anti-flash white":"e7ecef","Platinum":"d2dae2","French gray":"bcc8d4","UCLA Blue":"527092","Lapis Lazuli":"3c5e84","YInMn Blue":"274c77"}
+
+- Extended Array
+
+[{"name":"Anti-flash white","hex":"e7ecef","rgb":[231,236,239],"cmyk":[3,1,0,6],"hsb":[202,3,94],"hsl":[202,20,92],"lab":[93,-1,-2]},{"name":"Platinum","hex":"d2dae2","rgb":[210,218,226],"cmyk":[7,4,0,11],"hsb":[210,7,89],"hsl":[210,22,85],"lab":[87,-1,-5]},{"name":"French gray","hex":"bcc8d4","rgb":[188,200,212],"cmyk":[11,6,0,17],"hsb":[210,11,83],"hsl":[210,22,78],"lab":[80,-2,-7]},{"name":"UCLA Blue","hex":"527092","rgb":[82,112,146],"cmyk":[44,23,0,43],"hsb":[212,44,57],"hsl":[212,28,45],"lab":[46,-1,-22]},{"name":"Lapis Lazuli","hex":"3c5e84","rgb":[60,94,132],"cmyk":[55,29,0,48],"hsb":[212,55,52],"hsl":[212,38,38],"lab":[39,-1,-25]},{"name":"YInMn Blue","hex":"274c77","rgb":[39,76,119],"cmyk":[67,36,0,53],"hsb":[212,67,47],"hsl":[212,51,31],"lab":[32,2,-28]}]
+
+- XML
+
+<palette>
+  <color name="Anti-flash white" hex="e7ecef" r="231" g="236" b="239" />
+  <color name="Platinum" hex="d2dae2" r="210" g="218" b="226" />
+  <color name="French gray" hex="bcc8d4" r="188" g="200" b="212" />
+  <color name="UCLA Blue" hex="527092" r="82" g="112" b="146" />
+  <color name="Lapis Lazuli" hex="3c5e84" r="60" g="94" b="132" />
+  <color name="YInMn Blue" hex="274c77" r="39" g="76" b="119" />
+</palette>
