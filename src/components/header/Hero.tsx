@@ -11,7 +11,7 @@ const Hero = () => {
                 Unlock the Code
               </span>
             </h1>
-            <p className="max-w-2xl mb-6  font-light text-gray-800 lg:mb-8 md:text-lg lg:text-xl ">
+            <p className="max-w-2xl mb-6  font-light text-gray-800  lg:mb-8 md:text-lg lg:text-xl ">
               Navigating the World of Programming with Precision and Passion!
             </p>
             <button

@@ -26,7 +26,7 @@ const config: Config = {
       },
       white: "#ffffff",
     },
-    fontFamily: { 
+    fontFamily: {
       sans: ["Ubuntu", "sans-serif"],
     },
     extend: {

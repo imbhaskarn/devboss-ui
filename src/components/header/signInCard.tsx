@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLogin, setLoginStatus } from "@/store";
+import { toggleLogin, toggleAuthState } from "@/store";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import axiosInstance from "@/utils/axios/axios";
@@ -23,7 +23,7 @@ export const SignInCard = () => {
         dispatch(setAccessToken(res.data.data.accessToken));
         dispatch(setRefreshToken(res.data.data.refreshToken));
         dispatch(setUser(res.data.data.user));
-        dispatch(setLoginStatus(res.data.data.user));
+        dispatch(toggleAuthState());
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
       })
       .catch((err) => {

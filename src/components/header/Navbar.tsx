@@ -2,12 +2,13 @@ import Link from "next/link";
 import React from "react";
 import { useState, useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineProfile } from "react-icons/ai";
 import { SignInCard } from "./signInCard";
 import { useDispatch } from "react-redux";
-import { toggleLogin, setLoginStatus } from "@/store";
+import { toggleLogin, toggleAuthState } from "@/store";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
+import { ImStatsBars2 } from "react-icons/im";
 interface state {
   signIn: {
     showLogin: boolean;
@@ -16,6 +17,7 @@ interface state {
     isLoggedIn: boolean;
     user: {
       username: string;
+      email: string;
     };
   };
 }
@@ -27,11 +29,14 @@ import {
   FaPenSquare,
   FaSearch,
   FaSignOutAlt,
+  FaUser,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileCard, setProfileCard] = useState(false);
+  console.log(profileCard);
   const showLogin = useSelector((state: state) => state.signIn.showLogin);
   const isLoggedIn = useSelector((state: state) => state.auth.isLoggedIn);
   const user = useSelector((state: state) => state.auth.user);
@@ -43,7 +48,7 @@ const Navbar = () => {
   };
 
   const handleSignOut = () => {
-    dispatch(setLoginStatus(false));
+    dispatch(toggleAuthState());
   };
 
   return (
@@ -60,16 +65,63 @@ const Navbar = () => {
               Devboss
             </span>
           </Link>
-          <div className="md:order-2">
+          <div className="md:order-2 relative">
+            {profileCard && (
+              <AnimatePresence>
+                <motion.div
+                  key={"navbar-default"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, width: "0px" }}
+                  transition={{
+                    duration: 0.4,
+                    type: "tween",
+                    ease: "easeInOut",
+                  }}
+                  id="user-info"
+                  className="absolute bg-white w-auto border border-gray-200  rounded-lg shadow-md top-10 right-[4px]"
+                >
+                  <ul
+                    role="list"
+                    className="flex flex-col justify-center gap-2 py-2"
+                  >
+                    <li className="hover:text-primary text-sm flex justify-start items-center gap-2 px-4">
+                      <FaUser />
+                      <span>Profile </span>
+                    </li>
+                    <li className="hover:text-primary text-sm flex justify-start items-center gap-2 px-4">
+                      <ImStatsBars2 />
+                      <span>Stats</span>{" "}
+                    </li>
+                    <li
+                      onClick={(params) => {
+                        handleSignOut();
+                        setProfileCard(!profileCard);
+                      }}
+                      className="text-sm border-t px-2 hover:text-primary"
+                    >
+                      <span>
+                        {" "}
+                        Sign Out <br /> {user.email}
+                      </span>
+                    </li>
+                  </ul>
+                </motion.div>
+              </AnimatePresence>
+            )}
             {isLoggedIn ? (
-              <div className="hidden text-gray-200 select-none text-sm rounded-lg  text-center cursor-pointer md:flex items-center">
+              <div
+                onClick={() => {
+                  setProfileCard(!profileCard);
+                }}
+                className="hidden text-gray-200 select-none text-sm rounded-lg  text-center cursor-pointer md:flex items-center relative"
+              >
                 <img
                   src={`https://ui-avatars.com/api/?background=a5b5e6&color=22223b&name=${user.username[0]}&rounded=true&bold=true&size=128`}
                   width={36}
                   height={36}
                   className="rounded-lg text-white"
                   alt={"avatar"}
-                
                 />
                 <FaAngleDown size={12} className="text-secondary " />
               </div>
@@ -77,7 +129,7 @@ const Navbar = () => {
               <button
                 onClick={handleShowLogin}
                 type="button"
-                className="text-white cursor-pointer  hidden md:block bg-primary px-[1.5rem] py-[1rem] font-medium rounded-lg text-sm  text-center mr-3 hover:bg-opacity-90 hover:text-gray-100 md:mr-0"
+                className="text-white cursor-pointer  hidden md:block bg-primary px-[1rem] py-[0.6rem] font-medium rounded-lg text-sm  text-center hover:bg-opacity-90 hover:text-gray-100 md:mr-0"
               >
                 Get started
               </button>
@@ -112,7 +164,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-sm rounded  text-primary  md:text-blue-700 md:p-0"
+                  className="block py-2 pl-3 pr-4 rounded  text-primary  md:text-blue-700 md:p-0"
                   aria-current="page"
                 >
                   Home
@@ -121,7 +173,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-sm  hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   Write
                 </Link>
@@ -129,7 +181,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-sm  hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded   hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   Donate
                 </Link>
@@ -137,7 +189,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded text-sm  hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded  hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   About
                 </Link>
@@ -147,7 +199,7 @@ const Navbar = () => {
                   <Link
                     onClick={handleShowLogin}
                     href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded text-sm  hover:text-primary md:p-0"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-primary md:p-0"
                   >
                     Sign In
                   </Link>
@@ -259,6 +311,7 @@ const Navbar = () => {
             )}
           </AnimatePresence>
         </div>
+        {isLoggedIn && <div>hello</div>}
       </nav>
       {showLogin && <SignInCard />}
     </div>
