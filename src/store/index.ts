@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["toggleLogin"],
 };
 
 // create a slice
@@ -41,7 +42,6 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     toggleAuthState: (state) => {
-      console.log("toggleAuthState", state.isLoggedIn);
       state.isLoggedIn = !state.isLoggedIn;
     },
   },
