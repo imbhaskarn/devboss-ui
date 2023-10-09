@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleLogin, toggleAuthState } from "@/store";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import axiosInstance from "@/utils/axios/axios";
+import axiosInstance from "@/utils/axios";
 import { setRefreshToken, setAccessToken, setUser } from "@/store";
 
 export const SignInCard = () => {
@@ -18,7 +18,6 @@ export const SignInCard = () => {
     axiosInstance
       .post("/auth/login", values)
       .then((res) => {
-        console.log(res.data);
         dispatch(toggleLogin());
         dispatch(setAccessToken(res.data.data.accessToken));
         dispatch(setRefreshToken(res.data.data.refreshToken));
@@ -26,11 +25,7 @@ export const SignInCard = () => {
         dispatch(toggleAuthState());
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    console.log(values);
+      .catch((err) => {});
   };
 
   return (
@@ -127,7 +122,7 @@ export const SignInCard = () => {
               </label>
             </div>
             <a
-              href="#"
+              href="/reset-password"
               className="ml-auto text-sm text-blue-700 hover:underline"
             >
               Lost Password?

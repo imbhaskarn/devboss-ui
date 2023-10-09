@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       // Dispatch an action to refresh the token
-      await store.dispatch(refreshTokenAction());
+      store.dispatch(refreshTokenAction() as any);
       const accessToken =
         store.getState().auth.accessToken ||
         localStorage.getItem("accessToken");

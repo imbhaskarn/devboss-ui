@@ -36,7 +36,6 @@ import { motion } from "framer-motion";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileCard, setProfileCard] = useState(false);
-  console.log(profileCard);
   const showLogin = useSelector((state: state) => state.signIn.showLogin);
   const isLoggedIn = useSelector((state: state) => state.auth.isLoggedIn);
   const user = useSelector((state: state) => state.auth.user);
@@ -85,13 +84,18 @@ const Navbar = () => {
                     role="list"
                     className="flex flex-col justify-center gap-2 py-2"
                   >
-                    <li className="hover:text-primary text-sm flex justify-start items-center gap-2 px-4">
-                      <FaUser />
-                      <span>Profile </span>
+                    <li>
+                      <Link
+                        className="hover:text-primary text-sm flex justify-start items-center gap-2 px-4"
+                        href={`/user/${user.username}`}
+                      >
+                        <FaUser />
+                        <span>Profile</span>
+                      </Link>
                     </li>
                     <li className="hover:text-primary text-sm flex justify-start items-center gap-2 px-4">
                       <ImStatsBars2 />
-                      <span>Stats</span>{" "}
+                      <span>Stats</span>
                     </li>
                     <li
                       onClick={(params) => {
@@ -101,7 +105,6 @@ const Navbar = () => {
                       className="text-sm border-t px-2 hover:text-primary"
                     >
                       <span>
-                        {" "}
                         Sign Out <br /> {user.email}
                       </span>
                     </li>
@@ -163,7 +166,7 @@ const Navbar = () => {
             <ul className="font flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
               <li>
                 <Link
-                  href="#"
+                  href="/"
                   className="block py-2 pl-3 pr-4 rounded  text-primary  md:text-blue-700 md:p-0"
                   aria-current="page"
                 >
@@ -172,7 +175,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/write"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   Write
@@ -180,7 +183,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/donate"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded   hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   Donate
@@ -188,7 +191,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/about"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded  hover:text-primary md:border-0 md:hover:text-blue-700 md:p-0"
                 >
                   About
@@ -196,13 +199,12 @@ const Navbar = () => {
               </li>
               {!isLoggedIn && (
                 <li>
-                  <Link
+                  <button
                     onClick={handleShowLogin}
-                    href="#"
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-primary md:p-0"
                   >
                     Sign In
-                  </Link>
+                  </button>
                 </li>
               )}
             </ul>
@@ -229,8 +231,8 @@ const Navbar = () => {
                     className="font bg-gray-100 w-2/5 h-full flex flex-col text-left bg-opacity-100 py-10 px-4 gap-3 md:p-0 border   md:flex-row md:space-x-8 md:mt-0 md:border-0"
                   >
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/"
                         className="flex items-center p-2 text-sm text-gray-900 rounded-lg hover:bg-gray-100 group"
                       >
                         <FaHome
@@ -238,11 +240,11 @@ const Navbar = () => {
                           className="text-gray-500 group-hover:text-gray-900"
                         />
                         <span className="ml-3">Home</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/write"
                         className="flex items-center p-2 text-sm text-gray-900 rounded-lg hover:bg-gray-100 group"
                       >
                         <FaPenSquare
@@ -250,11 +252,11 @@ const Navbar = () => {
                           className="text-gray-500 group-hover:text-gray-900"
                         />
                         <span className="ml-3">Write</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/about"
                         className="flex items-center p-2 text-sm text-gray-900 rounded-lg hover:bg-gray-100 group"
                       >
                         <FaInfo
@@ -262,7 +264,7 @@ const Navbar = () => {
                           className="text-gray-500 group-hover:text-gray-900"
                         />
                         <span className="ml-3">About</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a
@@ -282,17 +284,14 @@ const Navbar = () => {
                         className="flex-grow flex justify-end flex-col"
                       >
                         <button className="inline-flex items-center justify-center font-sans font-semibold tracking-wide text-white bg-blue-700 rounded-lg h-[48px]">
-                          <a
-                            href="#"
-                            className=" flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg group"
-                          >
+                          <button className=" flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg group">
                             <FaSignOutAlt
                               size={24}
                               color={"white"}
                               className="text-gray-500 group-hover:text-gray-900"
                             />
                             <span>Sign Out</span>
-                          </a>{" "}
+                          </button>{" "}
                         </button>
                       </li>
                     ) : (
@@ -311,7 +310,11 @@ const Navbar = () => {
             )}
           </AnimatePresence>
         </div>
-        {isLoggedIn && <div>hello</div>}
+        {isLoggedIn && (
+          <div>
+            <Link href={`https://www.google.com`}>Google</Link>
+          </div>
+        )}
       </nav>
       {showLogin && <SignInCard />}
     </div>
