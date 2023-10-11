@@ -1,16 +1,16 @@
 import { setAccessToken } from "@/store";
-import axiosInstance from "@/utils/axios/axios";
-
+import axiosInstance from "@/utils/axios";
 
 export const refreshTokenAction = () => async (dispatch: any) => {
   try {
     const refreshToken = localStorage.getItem("refreshToken");
-    const response = await axiosInstance.post("/refresh-token", {
+
+    const response = await axiosInstance.post("/auth/refresh-token", {
       refreshToken,
     });
-    dispatch(setAccessToken(response.data.accessToken));
-    const { accessToken } = response.data;
+    localStorage.setItem("accessToken", response.data.data.accessToken);
+    window.localStorage.setItem("accessToken", response.data.data.accessToken);
   } catch (error) {
-    // Handle token refresh error (e.g., logout the user)
+    console.log("this is the error", error);
   }
 };
