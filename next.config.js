@@ -1,15 +1,13 @@
+const { withContentlayer } = require("next-contentlayer");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'ui-avatars.com',
-        pathname: '**',
-      },
+    deviceSizes: [
+      360, 414, 512, 640, 750, 828, 1080, 1200, 1536, 1920, 2048, 3840,
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = withContentlayer(nextConfig);
