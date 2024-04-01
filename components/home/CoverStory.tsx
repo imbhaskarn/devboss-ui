@@ -1,202 +1,178 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
+import { StarFilledIcon, BadgeIcon } from "@radix-ui/react-icons";
+import { Badge } from "@/components/ui/badge";
 
-import { CalendarIcon, ClockIcon } from '@radix-ui/react-icons'
-import { ReactElement, JSXElementConstructor, ReactNode, AwaitedReactNode, Key } from 'react'
-// import { MdxContent } from '@/components/mdx/MdxContent'
-// import { format, parseISO } from 'date-fns'
-// import { SocialButton } from '@/components/social/SocialButton'
-// import { Share } from './Share'
-
-
-
-
-
-const article = {
-    title: 'The Best Way to Cook a Perfect Steak',
-    description:
-        'Learn how to cook a perfect steak every time with this easy-to-follow guide.',
-    image: '/images/steak.jpg',
-    category: {
-        name: 'Food',
-        url: '/categories/food',
+const article: any = {
+  title: "The Best Way to Cook a Perfect Steak",
+  description:
+    "Learn how to cook a perfect steak every time with this easy-to-follow guide.Learn how to cook a perfect steak every time with this easy-to-follow guide.Learn how to cook a perfect steak every time with this easy-to-follow guide. Learn how to cook a perfect steak every time with this easy-to-follow guide.Learn how to cook a perfect steak every time with this easy-to-follow guide.",
+  image: "/valley.jpg",
+  category: {
+    name: "Food",
+    url: "/categories/food",
+  },
+  tags: ["Cooking", "Recipes", "Steak"],
+  likes: 50,
+  author: {
+    name: "John Doe",
+    role: "Food Enthusiast",
+    avatar: "/images/john-doe.jpg",
+    url: "/authors/john-doe",
+    body: {
+      code: `John Doe is a food enthusiast who loves to cook and share his recipes with the world.`,
     },
-    tags: ['Cooking', 'Recipes', 'Steak'],
-    author: {
-        name: 'John Doe',
-        role: 'Food Enthusiast',
-        avatar: '/images/john-doe.jpg',
-        url: '/authors/john-doe',
-        body: {
-            code: `John Doe is a food enthusiast who loves to cook and share his recipes with the world.`,
-        },
-    }
-}
-
-
+  },
+};
 
 export default function Article() {
   return (
-    <article className="bg-gray-50 pb-12 sm:pb-16 lg:pb-24">
-      {/* Post Header */}
-      <header>
-        {/* Image */}
-        <div className="aspect-h-2 aspect-w-3 w-full bg-gray-100 sm:aspect-h-1">
-          <Image
-            className="object-cover object-center"
-            src={article.image}
-            alt={article.title}
-            fill
-            sizes="100vw"
-          />
-        </div>
-
-        {/* Post Header Content */}
-        <div className="px-5 lg:px-0">
-          {/* Article Information */}
-          <div className="mx-auto mb-8 max-w-prose border-b border-gray-300/70 pb-8 pt-10 text-lg sm:pt-16">
-            <Link
-              href={article.category.url}
-              className="relative text-sm font-medium uppercase tracking-widest text-red-700 transition-colors duration-300 ease-in-out hover:text-red-600"
-            >
-              {article.category.name}
-            </Link>
-            <h2 className="mt-3.5 text-4xl font-medium tracking-normal text-gray-900 decoration-red-300 decoration-3 transition duration-300 ease-in-out group-hover:underline sm:mt-5 sm:text-5xl sm:leading-tight md:tracking-tight lg:text-6xl">
-              {article.title}
-            </h2>
-            <div>
-              <p className="mt-4 text-base leading-loose text-gray-600">
-                {article.description}
-              </p>
+    <>
+      {" "}
+      <article className="bg-gray-50 w-full rounded-lg border-blue-500 border  p-6">
+        <div className="flex justify-center items-center flex-col gap-4">
+          <div className="w-full flex justify-between items-center rounded-lg">
+            <div className="flex justify-center items-center">
+              <div className="pr-4">
+                {" "}
+                <Image
+                  src={"/valley.jpg"}
+                  alt={"profile image"}
+                  width={48}
+                  height={48}
+                  className="text-sm rounded-full aspect-square object-cover"
+                />{" "}
+              </div>
+              <div className="flex text-sm text-center justify-center items-center">
+                <h2>
+                  <Link
+                    className="text-indigo-500 hover:text-indigo-600"
+                    href={article.author.url}
+                  >
+                    {article.author.name}
+                  </Link>
+                </h2>
+                <p className="px-4">{article.author.role}</p>
+              </div>
             </div>
-
-            {/* Author meta */}
-            <div className="mt-6 flex items-center sm:mt-8">
-              <Link href={article.author.url} className="mr-3 flex-shrink-0">
-                <div className="relative h-8 w-8 rounded-xl bg-gray-100 sm:h-9 sm:w-9">
-                  <Image
-                    className="rounded-xl object-cover object-center"
-                    src={article.author.avatar}
-                    alt={article.author.name}
-                    fill
-                    sizes="(min-width: 640px) 2.25rem, 2rem"
-                  />
-                  <span
-                    className="absolute inset-0 rounded-xl shadow-inner"
-                    aria-hidden="true"
-                  />
-                </div>
-              </Link>
-              <div className="flex items-center text-sm lg:text-[15px]">
-                <span className="hidden text-gray-500 sm:inline-block">
-                  By&nbsp;
-                </span>
-                <Link
-                  href={article.author.url}
-                  className="font-medium text-gray-700 hover:underline"
-                >
-                  {article.author.name}
-                </Link>
-                <CalendarIcon className="ml-4 h-[18px] w-[18px] text-gray-400" />
-                <time className="ml-1 text-gray-500" dateTime={article.date}>
-                  {Date.now()}
-                </time>
-                <span className="hidden items-center sm:flex">
-                  <ClockIcon className="ml-3 h-[18px] w-[18px] text-gray-400" />
-                  <span className="ml-1 text-gray-500">
-                    {article.time_to_read_in_minutes} min read
-                  </span>
-                </span>
+            <div className="flex justify-center items-center gap-2">
+              <Badge className="text-sm rounded-full border border-indigo-100 text-indigo-600 bg-indigo-100 hover:bg-indigo-100">
+                <BadgeIcon width={24} height={24} />{" "}
+                <p className="pl-2"> Featured </p>
+              </Badge>
+            </div>
+          </div>
+          <div className="flex justify-start gap-4">
+            <div className="flex flex-col items-start justify-center">
+              <div>
+                <h1 className="text-2xl font-semibold text-left">
+                  {article.title}
+                </h1>
+              </div>
+              <div className="text-left">
+                <p>
+                  {article.description.slice(0, 180) + "..."}
+                  <Link
+                    className="text-indigo-500"
+                    href={`/article/${article.path}`}
+                  >
+                    {" "}
+                    read more{" "}
+                  </Link>
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <div className="max-w-xs min-w-48">
+                <Image
+                  width={200}
+                  height={200}
+                  alt="cover"
+                  className="rounded-lg float-right aspect-video"
+                  src={"/valley.jpg"}
+                />
               </div>
             </div>
           </div>
+          <div className="w-full flex justify-start items-center">
+            <div> {article.likes} </div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
-      </header>
-
-      <div className="px-5 lg:px-0">
-        {/* Post Content */}
-        {/* Uses the official Tailwind CSS Typography plugin */}
-        <div className="prose mx-auto sm:prose-lg first-letter:text-4xl first-letter:font-bold first-letter:tracking-[.15em] prose-a:transition prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-red-700 prose-img:rounded-xl">
-          {/* <MdxContent code={article.body.code} /> */}
-        </div>
-
-        {/* Post Footer */}
-        <footer className="mx-auto mt-12 max-w-prose divide-y divide-gray-300/70 text-lg sm:mt-14">
-          {/* Tags */}
-        <ul className="-m-1 flex flex-wrap justify-start pb-8 sm:pb-10">
-            {article.tags.map((tag: boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | Key | null | undefined) => (
-                <li key={tag || undefined}>
-                    {typeof tag === 'string' && (
-                        <Link href={`/tags/${tag.replace(/ /g, '-').toLowerCase()}`}>
-                            <span className="m-1 inline-flex items-center rounded-full border border-gray-300/70 bg-transparent px-4 py-1 text-sm font-medium text-gray-800 transition duration-300 ease-in-out hover:text-red-700 sm:px-6 sm:py-2">
-                                {tag}
-                            </span>
-                        </Link>
-                    )}
-                </li>
-            ))}
-        </ul>
-
-          {/* Social Share Buttons */}
-          {/* <Share /> */}
-
-          {/* Author Details */}
-          <div className="py-8 sm:py-10">
-            <div className="flex w-full items-center justify-between">
-              <div className="flex flex-col sm:flex-row">
-                {/* Image */}
-                <div className="flex-shrink-0">
-                  <div className="relative h-20 w-20 rounded-2xl bg-gray-100 sm:h-24 sm:w-24">
-                    <Image
-                      className="rounded-2xl object-cover object-center"
-                      src={article.author.avatar}
-                      alt={article.author.name}
-                      fill
-                      sizes="(min-width: 640px) 6rem, 5rem"
-                    />
-                    <span
-                      className="absolute inset-0 rounded-2xl shadow-inner"
-                      aria-hidden="true"
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="mt-5 text-left sm:ml-6 sm:mt-0">
-                  <div className="flex items-center justify-between">
-                    <div className="'flex flex-col">
-                      <p className="text-xs uppercase tracking-widest text-red-600">
-                        {article.author.role}
-                      </p>
-                      <h1 className="mt-1 text-xl font-medium tracking-normal text-gray-900 md:tracking-tight lg:leading-tight">
-                        {article.author.name}
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="mt-2.5 text-base leading-loose text-gray-500">
-                  {article.author.body.code}
-                    {/* <MdxContent code={article.author.body.code} /> */}
-                  </div>
-
-                  {/* Author Social Links */}
-                  {/* <ul className="mt-3.5 flex items-center space-x-3">
-                    {article.author.social_links.map((socialLink) => (
-                      <li key={socialLink.name}>
-                        <SocialButton
-                          type="link"
-                          href={socialLink.url}
-                          name={socialLink.name}
-                          iconClassName="w-[18px] h-[18px] text-gray-400 group-hover:text-gray-600"
-                        />
-                      </li>
-                    ))}
-                  </ul> */}
-                </div>
+      </article>{" "}
+      <article className="bg-gray-50 w-full rounded-lg border-blue-500 border  p-6">
+        <div className="flex justify-center items-center flex-col gap-4">
+          <div className="w-full flex justify-between items-center rounded-lg">
+            <div className="flex justify-center items-center">
+              <div className="pr-4">
+                {" "}
+                <Image
+                  src={"/valley.jpg"}
+                  alt={"profile image"}
+                  width={48}
+                  height={48}
+                  className="text-sm rounded-full aspect-square object-cover"
+                />{" "}
+              </div>
+              <div className="flex text-sm text-center justify-center items-center">
+                <h2>
+                  <Link
+                    className="text-indigo-500 hover:text-indigo-600"
+                    href={article.author.url}
+                  >
+                    {article.author.name}
+                  </Link>
+                </h2>
+                <p className="px-4">{article.author.role}</p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <Badge className="text-sm rounded-full border border-indigo-100 text-indigo-600 bg-indigo-100 hover:bg-indigo-100">
+                <BadgeIcon width={24} height={24} />{" "}
+                <p className="pl-2"> Featured </p>
+              </Badge>
+            </div>
+          </div>
+          <div className="flex justify-start gap-4">
+            <div className="flex flex-col items-start justify-center">
+              <div>
+                <h1 className="text-2xl font-semibold text-left">
+                  {article.title}
+                </h1>
+              </div>
+              <div className="text-left">
+                <p>
+                  {article.description.slice(0, 180) + "..."}
+                  <Link
+                    className="text-indigo-500"
+                    href={`/article/${article.path}`}
+                  >
+                    {" "}
+                    read more{" "}
+                  </Link>
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <div className="max-w-xs min-w-48">
+                <Image
+                  width={200}
+                  height={200}
+                  alt="cover"
+                  className="rounded-lg float-right aspect-video"
+                  src={"/valley.jpg"}
+                />
               </div>
             </div>
           </div>
-        </footer>
-      </div>
-    </article>
-  )
+          <div className="w-full flex justify-start items-center">
+            <div> {article.likes} </div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </article>
+    </>
+  );
 }
