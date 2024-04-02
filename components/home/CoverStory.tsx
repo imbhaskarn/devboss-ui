@@ -1,7 +1,9 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { StarFilledIcon, BadgeIcon } from "@radix-ui/react-icons";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 const article: any = {
   title: "The Best Way to Cook a Perfect Steak",
@@ -29,7 +31,7 @@ export default function Article() {
   return (
     <>
       {" "}
-      <article className="bg-gray-50 w-full rounded-lg border-blue-500 border  p-6">
+      <article className="bg-gray-50 w-full rounded-lg border-blue-200 border  p-6">
         <div className="flex justify-center items-center flex-col gap-4">
           <div className="w-full flex justify-between items-center rounded-lg">
             <div className="flex justify-center items-center">
@@ -101,19 +103,21 @@ export default function Article() {
           </div>
         </div>
       </article>{" "}
-      <article className="bg-gray-50 w-full rounded-lg border-blue-500 border  p-6">
+      <article className="bg-gray-50 w-full rounded-lg border-blue-200 border  p-6">
         <div className="flex justify-center items-center flex-col gap-4">
           <div className="w-full flex justify-between items-center rounded-lg">
             <div className="flex justify-center items-center">
               <div className="pr-4">
-                {" "}
-                <Image
-                  src={"/valley.jpg"}
-                  alt={"profile image"}
-                  width={48}
-                  height={48}
-                  className="text-sm rounded-full aspect-square object-cover"
-                />{" "}
+                <Avatar>
+                  <span className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                  </span>
+
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
               </div>
               <div className="flex text-sm text-center justify-center items-center">
                 <h2>
