@@ -9,10 +9,10 @@ const Navbar = () => {
   return (
     <div className="flex justify-center items-center">
       {" "}
-      <nav className="py-4 w-full">
-        <div className="flex flex-col px-4 mx-auto w-full max-w-7xl lg:flex-row lg:justify-between lg:items-center">
+      <nav className="py-4 w-full bg-indigo-50">
+        <div className="flex flex-col px-8 mx-auto max-w-screen-2xl  lg:flex-row lg:justify-between lg:items-center">
           <div className="flex justify-between lg:justify-center">
-            <span className=" lg:w-full text-center py-2 text-white px-6 rounded-lg bg-indigo-500 button-shadow hover:bg-indigo-600">
+            <span className="text-center py-2 text-white px-6 rounded-lg bg-indigo-500 button-shadow hover:bg-indigo-600">
               <a href="#">Navbar</a>
             </span>
 

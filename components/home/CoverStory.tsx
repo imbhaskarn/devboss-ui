@@ -30,80 +30,7 @@ const article: any = {
 export default function Article() {
   return (
     <>
-      {" "}
-      <article className="bg-gray-50 w-full rounded-lg border-blue-200 border  p-6">
-        <div className="flex justify-center items-center flex-col gap-4">
-          <div className="w-full flex justify-between items-center rounded-lg">
-            <div className="flex justify-center items-center">
-              <div className="pr-4">
-                {" "}
-                <Image
-                  src={"/valley.jpg"}
-                  alt={"profile image"}
-                  width={48}
-                  height={48}
-                  className="text-sm rounded-full aspect-square object-cover"
-                />{" "}
-              </div>
-              <div className="flex text-sm text-center justify-center items-center">
-                <h2>
-                  <Link
-                    className="text-indigo-500 hover:text-indigo-600"
-                    href={article.author.url}
-                  >
-                    {article.author.name}
-                  </Link>
-                </h2>
-                <p className="px-4">{article.author.role}</p>
-              </div>
-            </div>
-            <div className="flex justify-center items-center gap-2">
-              <Badge className="text-sm rounded-full border border-indigo-100 text-indigo-600 bg-indigo-100 hover:bg-indigo-100">
-                <BadgeIcon width={24} height={24} />{" "}
-                <p className="pl-2"> Featured </p>
-              </Badge>
-            </div>
-          </div>
-          <div className="flex justify-start gap-4">
-            <div className="flex flex-col items-start justify-center">
-              <div>
-                <h1 className="text-2xl font-semibold text-left">
-                  {article.title}
-                </h1>
-              </div>
-              <div className="text-left">
-                <p>
-                  {article.description.slice(0, 180) + "..."}
-                  <Link
-                    className="text-indigo-500"
-                    href={`/article/${article.path}`}
-                  >
-                    {" "}
-                    read more{" "}
-                  </Link>
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-center items-center">
-              <div className="max-w-xs min-w-48">
-                <Image
-                  width={200}
-                  height={200}
-                  alt="cover"
-                  className="rounded-lg float-right aspect-video"
-                  src={"/valley.jpg"}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex justify-start items-center">
-            <div> {article.likes} </div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      </article>{" "}
-      <article className="bg-gray-50 w-full rounded-lg border-blue-200 border  p-6">
+      <article className="bg-gray-50 w-full rounded-lg border-blue-200 border  p-6 lg:max-w">
         <div className="flex justify-center items-center flex-col gap-4">
           <div className="w-full flex justify-between items-center rounded-lg">
             <div className="flex justify-center items-center">
@@ -138,38 +65,54 @@ export default function Article() {
               </Badge>
             </div>
           </div>
-          <div className="flex justify-start gap-4">
-            <div className="flex flex-col items-start justify-center">
-              <div>
-                <h1 className="text-2xl font-semibold text-left">
-                  {article.title}
-                </h1>
+          <div>
+            <div className="flex justify-start gap-4">
+              <div className="flex flex-col items-start justify-center">
+                <div>
+                  <h1 className="text-xl mb-1 font-semibold text-left">
+                    {article.title}
+                  </h1>
+                </div>
+                <div className="text-left block">
+                  <p>
+                    {article.description.slice(0, 180) + "..."}
+                    <Link
+                      className="text-indigo-500"
+                      href={`/article/${article.path}`}
+                    >
+                      {" "}
+                      read more{" "}
+                    </Link>
+                  </p>
+                </div>
               </div>
-              <div className="text-left">
-                <p>
-                  {article.description.slice(0, 180) + "..."}
-                  <Link
-                    className="text-indigo-500"
-                    href={`/article/${article.path}`}
-                  >
-                    {" "}
-                    read more{" "}
-                  </Link>
-                </p>
+              <div className="flex justify-center items-center lg:hidden">
+                <div className="max-w-2xl lg:max-w-xs lg:min-w-48">
+                  <Image
+                    objectFit="cover"
+                    layout="responsive"
+                    width={200}
+                    height={200}
+                    alt="cover"
+                    className="rounded-lg float-right aspect-video"
+                    src={"/valley.jpg"}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex justify-center items-center">
-              <div className="max-w-xs min-w-48">
-                <Image
-                  width={200}
-                  height={200}
-                  alt="cover"
-                  className="rounded-lg float-right aspect-video"
-                  src={"/valley.jpg"}
-                />
+              <div className="hidden lg:flex lg:justify-center lg:items-center">
+                <div className="max-w-xs min-w-48">
+                  <Image
+                    width={200}
+                    height={200}
+                    alt="cover"
+                    className="rounded-lg float-right aspect-video"
+                    src={"/valley.jpg"}
+                  />
+                </div>
               </div>
             </div>
           </div>
+
           <div className="w-full flex justify-start items-center">
             <div> {article.likes} </div>
             <div></div>
