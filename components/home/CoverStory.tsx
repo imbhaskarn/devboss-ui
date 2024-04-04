@@ -4,6 +4,8 @@ import Image from "next/image";
 import { StarFilledIcon, BadgeIcon } from "@radix-ui/react-icons";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { LuFileBadge2 } from "react-icons/lu";
+import { MdOutlineModeComment, MdOutlineBookmarkBorder } from "react-icons/md";
 
 const article: any = {
   title: "The Best Way to Cook a Perfect Steak",
@@ -30,8 +32,8 @@ const article: any = {
 export default function Article() {
   return (
     <>
-      <article className="bg-gray-50 w-full rounded-lg border-blue-200 border  p-6 lg:max-w">
-        <div className="flex justify-center items-center flex-col gap-4">
+      <article className="w-full  p-6 border-indigo-100  border-b-2 lg:border-none lg:max-w">
+        <div className="flex justify-center items-center flex-col">
           <div className="w-full flex justify-between items-center rounded-lg">
             <div className="flex justify-center items-center">
               <div className="pr-4">
@@ -55,25 +57,24 @@ export default function Article() {
                     {article.author.name}
                   </Link>
                 </h2>
-                <p className="px-4">{article.author.role}</p>
               </div>
             </div>
             <div className="flex justify-center items-center gap-2">
-              <Badge className="text-sm rounded-full border border-indigo-100 text-indigo-600 bg-indigo-100 hover:bg-indigo-100">
-                <BadgeIcon width={24} height={24} />{" "}
-                <p className="pl-2"> Featured </p>
-              </Badge>
+              <div className="text-sm flex justify-center items-center text-indigo-600">
+                <LuFileBadge2 size={20} />{" "}
+                <p className="hidden pl-2 sm:block"> Featured </p>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="flex justify-start gap-4">
+          <div className="borer rounded-lg border-indigo-200">
+            <div className="flex gap-2 flex-col sm:flex-row sm:justify-start sm:items-center">
               <div className="flex flex-col items-start justify-center">
                 <div>
-                  <h1 className="text-xl mb-1 font-semibold text-left">
+                  <h1 className="test-base sm:text-xl mb-1 font-semibold text-left">
                     {article.title}
                   </h1>
                 </div>
-                <div className="text-left block">
+                <div className="text-left hidden sm:block">
                   <p>
                     {article.description.slice(0, 180) + "..."}
                     <Link
@@ -114,9 +115,32 @@ export default function Article() {
           </div>
 
           <div className="w-full flex justify-start items-center">
-            <div> {article.likes} </div>
-            <div></div>
-            <div></div>
+            <section className="flex w-full flex-col gap-5">
+              <div className="p-3 flex flex-row items-center justify-between text-slate-600 dark:text-slate-300 text-sm ">
+                <div className="flex flex-row items-center justify-start gap-2">
+                  <Link href="/discussions/post/660e8c6f382d9a32cf9928bb?source=discuss_feed_card_button">
+                    <div className="flex gap-2 justify-center items-center">
+                      <MdOutlineModeComment size={20} />
+                      <span className="css-m0svy7">Discuss</span>
+                    </div>
+                  </Link>
+                  <span className="flex justify-center items-center">
+                    <p className="text-nowrap"> {article.likes} likes </p>
+                  </span>
+                </div>
+                <div className="w-full flex-row items-center justify-end flex gap-1">
+                  <button
+                    className="bookmark-button"
+                    aria-label="Bookmark post"
+                    data-state="closed"
+                  >
+                    <span className="text-slate-500 dark:text-slate-400 group-hover:text-blue-600">
+                      <MdOutlineBookmarkBorder size={20} />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </article>
